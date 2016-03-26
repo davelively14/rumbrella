@@ -71,7 +71,7 @@ defmodule Rumbl.VideoChannel do
   defp compute_additional_info(ann, socket) do
     # Only wants one result...the first, which should be the best based on the
     # sorting we do in InfoSys.
-    for result <- Rumbl.InfoSys.compute(ann.body, limit: 1, timeout: 10_000) do
+    for result <- InfoSys.compute(ann.body, limit: 1, timeout: 10_000) do
       attrs = %{url: result.url, body: result.text, at: ann.at}
       info_changeset =
         # Find username based on the backend name (set in info_sys/wolfram.ex)
