@@ -1,0 +1,8 @@
+<h1>Showing User</h1>
+
+<%= render "user.html", user: @user %>
+
+<br>
+<br>
+
+<%= link "Back to all users", to: user_path(@conn, :index) %>

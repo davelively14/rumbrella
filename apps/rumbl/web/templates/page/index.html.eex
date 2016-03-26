@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}", name: "Rumbl.io!" %></h2>
+  <p class="lead">Rumble out loud.</p>
+</div>
+<div class="container">
+  <h3>Navigation</h3>
+  <%= link "View All Users", to: user_path(@conn, :index) %>
+</div>
+<div class="container">
+  <h3>Videos</h3>
+  <%= link "My videos", to: video_path(@conn, :index) %>
+</div>
