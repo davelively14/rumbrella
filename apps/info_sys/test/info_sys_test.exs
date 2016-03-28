@@ -23,6 +23,9 @@ defmodule InfoSysTest do
       # Simulates that our request takes too long
       :timer.sleep(:infinity)
     end
+    def fetch("boom", _ref, _owner, _limit) do
+      raise "boom!"
+    end
   end
 
   # Tests compute/2 functionality given the fake TestBackend module.
@@ -43,6 +46,14 @@ defmodule InfoSysTest do
     assert_receive {:DOWN, ^ref, :process, _pid, _reason}
 
     # Confirm that inbox was cleaned out with these two statements.
+    refute_received {:DOWN, _, _, _, _}
+    refute_received :timedout
+  end
+
+  # This tag prevents the crashing run time error log message from appearing.
+  @tag :capture_log
+  test "compute/2 discards backend errors" do
+    assert InfoSys.compute("boom", backends: [TestBackend]) == []
     refute_received {:DOWN, _, _, _, _}
     refute_received :timedout
   end
